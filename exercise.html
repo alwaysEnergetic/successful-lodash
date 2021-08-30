@@ -3,26 +3,21 @@
         <script src="lodash.js"></script>
     </head>
     <script>
-        var users = [
-            { user: "barney", active: true },
-            { user: "fred", active: false },
-            { user: "pebbles", active: false },
-        ];
+       class People {
+           constructor(name) {
+               this.name = name;
+           }
+           get Name() {
+               return this.name;
+           }
+           set Name(name) {
+                this.name = name;
+           }
+       }
 
-       const temp =         _.dropRightWhile(users, "active");
-        console.log(temp)
-        // => objects for ['barney']
-
-        // The `_.matches` iteratee shorthand.
-        _.dropRightWhile(users, { user: "pebbles", active: false });
-        // => objects for ['barney', 'fred']
-
-        // The `_.matchesProperty` iteratee shorthand.
-        _.dropRightWhile(users, ["active", false]);
-        // => objects for ['barney']
-
-        // The `_.property` iteratee shorthand.
-        _.dropRightWhile(users, "active");
-        // => objects for ['barney', 'fred', 'pebbles']
+       let person = new People("john doe");
+       console.log(person.Name);
+       person.name = "giraffe";
+       console.log(person.name)
     </script>
 </html>
