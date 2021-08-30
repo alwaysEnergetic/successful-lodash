@@ -1,17 +1,28 @@
-table {
-    font-family: arial, sans-serif;
-    width: 100%;
-    border-spacing: 5px;
-    border-collapse: collapse;
-  }
-  
+<html>
+    <head>
+        <script src="lodash.js"></script>
+    </head>
+    <script>
+        var users = [
+            { user: "barney", active: true },
+            { user: "fred", active: false },
+            { user: "pebbles", active: false },
+        ];
 
-th, td {
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 8px;
-}
+       const temp =         _.dropRightWhile(users, "active");
+        console.log(temp)
+        // => objects for ['barney']
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
+        // The `_.matches` iteratee shorthand.
+        _.dropRightWhile(users, { user: "pebbles", active: false });
+        // => objects for ['barney', 'fred']
+
+        // The `_.matchesProperty` iteratee shorthand.
+        _.dropRightWhile(users, ["active", false]);
+        // => objects for ['barney']
+
+        // The `_.property` iteratee shorthand.
+        _.dropRightWhile(users, "active");
+        // => objects for ['barney', 'fred', 'pebbles']
+    </script>
+</html>
