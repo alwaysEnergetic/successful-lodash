@@ -1,21 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Car extends React.Component {
-  render() {
-    return <h2>I am a {this.props.brand.model}!</h2>;
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            brand: "ford",
+            model: "mustang",
+            year: 1923,
+            color: "red",
+        };
+    }
+    changeColor = () => {
+      if(this.state.color === 'red'){
+        this.setState({ color: "blue" }); 
+      } else {
+        this.setState({ color: "red" }); 
+      }
+    };
+
+    render() {
+        console.log(this.props);
+        return (
+            <div>
+                <h2>I am a {this.state.color}!</h2>
+                <p> I am a student </p>
+                <button type="button" onClick={ this.changeColor }> Change Color</button>
+            </div>
+        );
+    }
 }
 
-class Garage extends React.Component {
-  render() {
-    const carinfo = {name: "Ford", model: "Mustang"};
-    return (
-      <div>
-      <h1>Who lives in my garage?</h1>
-      <Car brand={carinfo} />
-      </div>
-    );
-  }
-}
-ReactDOM.render(<Garage />, document.getElementById('root'));
+ReactDOM.render(<Car />, document.getElementById("root"));
