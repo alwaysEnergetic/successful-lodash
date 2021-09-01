@@ -1,31 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import reactDom from "react-dom";
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
+function MyFunction(props) {
+    const temp = props.temp;
+    console.log(temp)
+    if (!temp) { return ""; }
+    else if (temp > 100) {
+            return <h1> The water would boil. </h1>;
+        } else {
+            return <h1> The water would not boil. </h1>;
+        }
+    }
 
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-  }
 
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
+class MyResult extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = { temperature: "" };
+    }
 
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
-    );
-  }
+    handleChange(e) {
+        this.setState({ temperature: e.target.value });
+    }
+
+    render() {
+        const temperature = this.state.temperature;
+        return (
+            <fieldset>
+                <legend> Enter temperature: </legend>
+                <input value={temperature} onChange={this.handleChange} />
+
+                <MyFunction temp={parseFloat(temperature)} />
+            </fieldset>
+        );
+    }
 }
 
-ReactDOM.render(
-  <Toggle />,
-  document.getElementById('root')
-);
+reactDom.render(<MyResult />, document.getElementById("root"));
