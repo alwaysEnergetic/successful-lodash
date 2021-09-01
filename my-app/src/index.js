@@ -1,34 +1,31 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-class Car extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            brand: "ford",
-            model: "mustang",
-            year: 1923,
-            color: "red",
-        };
-    }
-    changeColor = () => {
-      if(this.state.color === 'red'){
-        this.setState({ color: "blue" }); 
-      } else {
-        this.setState({ color: "red" }); 
-      }
-    };
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
 
-    render() {
-        console.log(this.props);
-        return (
-            <div>
-                <h2>I am a {this.state.color}!</h2>
-                <p> I am a student </p>
-                <button type="button" onClick={ this.changeColor }> Change Color</button>
-            </div>
-        );
-    }
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
 }
 
-ReactDOM.render(<Car />, document.getElementById("root"));
+ReactDOM.render(
+  <Toggle />,
+  document.getElementById('root')
+);
